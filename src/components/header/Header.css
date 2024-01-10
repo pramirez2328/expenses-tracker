@@ -1,3 +1,7 @@
-/* .logo {
-  width: 30%;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
+
+.title {
+  text-shadow: -3px 5px 6px rgba(11, 11, 11, 0.62);
+  letter-spacing: 3px;
+  font-family: 'Instrument Serif', serif;
+}
