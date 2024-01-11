@@ -1,3 +1,4 @@
+import './ListExpenses.css';
 interface Expense {
   id: number;
   description: string;
@@ -6,7 +7,15 @@ interface Expense {
   amount: number;
 }
 
-function ListExpenses({ expenses, handleRemove }: { expenses: Expense[]; handleRemove: (id: number) => void }) {
+function ListExpenses({
+  expenses,
+  handleRemove,
+  total,
+}: {
+  expenses: Expense[];
+  handleRemove: (id: number) => void;
+  total: number;
+}) {
   return (
     <div className='table-responsive shadow-lg p-3 mb-5 bg-body-tertiary rounded'>
       <table className='table '>
@@ -23,6 +32,9 @@ function ListExpenses({ expenses, handleRemove }: { expenses: Expense[]; handleR
             </th>
             <th scope='col' className='text-muted'>
               amount
+            </th>
+            <th scope='col' className='text-muted'>
+              {''}
             </th>
           </tr>
         </thead>
@@ -44,6 +56,11 @@ function ListExpenses({ expenses, handleRemove }: { expenses: Expense[]; handleR
           })}
         </tbody>
       </table>
+      <div className='text-center'>
+        <h5 className='text-muted'>
+          You have spent: <span className='total'>${total}</span>
+        </h5>
+      </div>
     </div>
   );
 }

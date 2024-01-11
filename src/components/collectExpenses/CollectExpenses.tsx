@@ -27,7 +27,7 @@ function CollectExpenses({ handleOnSubmit }: FormProps) {
           <Modal.Title>Add Expense</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddExpense handleOnSubmit={handleOnSubmit} />
+          <AddExpense handleOnSubmit={handleOnSubmit} onHide={() => setShow(!show)} />
         </Modal.Body>
       </Modal>
     </>

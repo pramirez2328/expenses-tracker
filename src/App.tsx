@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CollectExpenses from './components/CollectExpenses/CollectExpenses';
 import FilterExpenses from './components/FilterExpenses/FilterExpenses';
 import ListExpenses from './components/ListExpenses/ListExpenses';
@@ -17,15 +17,49 @@ interface FormValues {
 }
 
 function App() {
-  const [expenses, setExpenses] = useState<FormValues[]>(existingExpenses);
+  const [expenses, setExpenses] = useState<FormValues[]>([]);
+  const [totals, setTotals] = useState<number>(0);
+
+  useEffect(() => {
+    const storedExpenses = localStorage.getItem('expenses');
+    if (storedExpenses) {
+      setExpenses(JSON.parse(storedExpenses));
+    } else {
+      setExpenses(existingExpenses);
+    }
+  }, []);
+
+  useEffect(() => {
+    const amounts = expenses.map((expense) => expense.amount);
+    const total = amounts.reduce((acc, item) => (acc += item), 0);
+    setTotals(total);
+  }, [expenses]);
 
   const handleOnSubmit = (values: FormValues) => {
     const date = values.date.split('-');
-    setExpenses([...expenses, { ...values, date: `${date[1]}/${date[2]}/${date[0]}`, id: expenses.length + 1 }]);
+    const newExpense = [...expenses, { ...values, date: `${date[1]}/${date[2]}/${date[0]}`, id: expenses.length + 1 }];
+    setExpenses(newExpense);
+    localStorage.setItem('expenses', JSON.stringify(newExpense));
   };
 
   const handleRemoveExpense = (id: number) => {
-    setExpenses(expenses.filter((expense) => expense.id !== id));
+    const newExpenses = expenses.filter((expense) => expense.id !== id);
+    setExpenses(newExpenses);
+    localStorage.setItem('expenses', JSON.stringify(newExpenses));
+  };
+
+  const handleFilterExpenses = (event: { target: { value: string } }) => {
+    if (event.target.value === 'Filter by Category') {
+      const storedExpenses = localStorage.getItem('expenses');
+      if (storedExpenses) {
+        setExpenses(JSON.parse(storedExpenses));
+      } else {
+        setExpenses(existingExpenses);
+      }
+    } else {
+      const filterExpenses = expenses.filter((expense) => expense.category === event.target.value);
+      setExpenses(filterExpenses);
+    }
   };
 
   return (
@@ -33,15 +67,15 @@ function App() {
       <div className='row'>
         <Header />
       </div>
-      <div className='row'>
+      <div className='row '>
         <CollectExpenses handleOnSubmit={handleOnSubmit} />
       </div>
       <div className='row'>
-        <FilterExpenses />
+        <FilterExpenses handleFilterExpenses={handleFilterExpenses} />
       </div>
 
-      <div className='row'>
-        <ListExpenses expenses={expenses} handleRemove={handleRemoveExpense} />
+      <div className='row '>
+        <ListExpenses expenses={expenses} handleRemove={handleRemoveExpense} total={totals} />
       </div>
       <div className='row'>
         <Footer />
