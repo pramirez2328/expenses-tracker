@@ -1,4 +1,3 @@
-import { existingExpenses } from '../../util/getExistingExpenses';
 interface Expense {
   id: number;
   description: string;
@@ -7,7 +6,7 @@ interface Expense {
   amount: number;
 }
 
-function ListExpenses() {
+function ListExpenses({ expenses, handleRemove }: { expenses: Expense[]; handleRemove: (id: number) => void }) {
   return (
     <div className='table-responsive shadow-lg p-3 mb-5 bg-body-tertiary rounded'>
       <table className='table '>
@@ -28,7 +27,7 @@ function ListExpenses() {
           </tr>
         </thead>
         <tbody>
-          {existingExpenses.map((expense: Expense) => {
+          {expenses.map((expense) => {
             return (
               <tr key={expense.id}>
                 <th scope='row'>{expense.description}</th>
@@ -36,7 +35,7 @@ function ListExpenses() {
                 <td> {expense.date}</td>
                 <td>{expense.amount}</td>
                 <td>
-                  <button type='button' className='btn btn-danger btn-sm'>
+                  <button onClick={() => handleRemove(expense.id)} type='button' className='btn btn-danger btn-sm'>
                     Remove
                   </button>
                 </td>
