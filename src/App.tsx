@@ -67,7 +67,7 @@ function App() {
       <div className='row'>
         <Header />
       </div>
-      <div className='row '>
+      <div className='row'>
         <CollectExpenses handleOnSubmit={handleOnSubmit} />
       </div>
       <div className='row'>
