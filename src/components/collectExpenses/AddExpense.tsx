@@ -5,7 +5,6 @@ import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import * as yup from 'yup';
 import categories from '../../util/getCategories';
-import { useState } from 'react';
 
 interface FormValues {
   id: number;
