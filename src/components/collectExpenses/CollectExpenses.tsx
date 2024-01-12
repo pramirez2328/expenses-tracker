@@ -3,15 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import AddExpense from './AddExpense';
 
-interface FormValues {
-  id: number;
-  description: string;
-  category: string;
-  date: string;
-  amount: number;
-}
 interface FormProps {
-  handleOnSubmit: (values: FormValues) => void;
+  handleOnSubmit: (values: { id: number; description: string; category: string; date: string; amount: number }) => void;
 }
 
 function CollectExpenses({ handleOnSubmit }: FormProps) {
@@ -24,7 +17,7 @@ function CollectExpenses({ handleOnSubmit }: FormProps) {
 
       <Modal show={show} onHide={() => setShow(!show)}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Expense</Modal.Title>
+          <Modal.Title className='text-danger fw-bold'>* ADD EXPENSE</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddExpense handleOnSubmit={handleOnSubmit} onHide={() => setShow(!show)} />

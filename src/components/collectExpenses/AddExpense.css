@@ -1,0 +1,6 @@
+@media only screen and (max-width: 768px) {
+  .category-label,
+  .amount-label {
+    margin-top: 1em;
+  }
+}

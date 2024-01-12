@@ -5,17 +5,10 @@ import Row from 'react-bootstrap/Row';
 import * as formik from 'formik';
 import * as yup from 'yup';
 import categories from '../../util/getCategories';
-
-interface FormValues {
-  id: number;
-  description: string;
-  category: string;
-  date: string;
-  amount: number;
-}
+import './AddExpense.css';
 
 interface FormProps {
-  handleOnSubmit: (values: FormValues) => void;
+  handleOnSubmit: (values: { id: number; description: string; category: string; date: string; amount: number }) => void;
   onHide: () => void;
 }
 
@@ -68,7 +61,7 @@ function AddExpense({ handleOnSubmit, onHide }: FormProps) {
               </Form.Group>
 
               <Form.Group as={Col} md='6' controlId='category' className='position-relative'>
-                <Form.Label>Category</Form.Label>
+                <Form.Label className='category-label'>Category</Form.Label>
                 <Form.Control
                   as='select'
                   name='category'
@@ -110,7 +103,7 @@ function AddExpense({ handleOnSubmit, onHide }: FormProps) {
               </Form.Group>
 
               <Form.Group as={Col} md='6' controlId='amount' className='position-relative'>
-                <Form.Label>Amount</Form.Label>
+                <Form.Label className='amount-label'>Amount</Form.Label>
                 <Form.Control
                   type='number'
                   placeholder='amount'

@@ -6,7 +6,7 @@ interface Expense {
   amount: number;
 }
 
-function CardExpense({
+function MobileList({
   expenses,
   handleRemove,
   total,
@@ -66,4 +66,4 @@ function CardExpense({
   );
 }
 
-export default CardExpense;
+export default MobileList;
