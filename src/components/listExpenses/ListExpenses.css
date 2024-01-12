@@ -1,3 +1,7 @@
 .total {
   color: red !important;
 }
+
+.button {
+  font-size: 0.7em !important;
+}

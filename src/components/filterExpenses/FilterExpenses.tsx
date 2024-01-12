@@ -4,9 +4,10 @@ import './FilterExpenses.css';
 
 interface FilterExpensesProps extends SelectHTMLAttributes<HTMLSelectElement> {
   handleFilterExpenses: (event: ChangeEvent<HTMLSelectElement>) => void;
+  filter: string;
 }
 
-function FilterExpenses({ handleFilterExpenses }: FilterExpensesProps) {
+function FilterExpenses({ handleFilterExpenses, filter }: FilterExpensesProps) {
   return (
     <div className='mt-4 mb-4 p-0'>
       <select
@@ -14,6 +15,7 @@ function FilterExpenses({ handleFilterExpenses }: FilterExpensesProps) {
         onChange={handleFilterExpenses}
         className='form-select bg-body-secondary'
         aria-label='Default select example'
+        value={filter}
       >
         <option defaultValue=''>Filter by Category</option>
         {categories.map((category) => (
