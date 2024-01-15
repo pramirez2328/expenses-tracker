@@ -18,7 +18,7 @@ interface FormValues {
 function App() {
   const [expenses, setExpenses] = useState<FormValues[]>([]);
   const [totals, setTotals] = useState<number>(0);
-  const [filter, setFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>('Filter by Category');
 
   useEffect(() => {
     const storedExpenses = localStorage.getItem('expenses');
@@ -51,7 +51,7 @@ function App() {
     setFilter(event.target.value);
     const storedExpenses = localStorage.getItem('expenses');
     if (event.target.value === 'Filter by Category') {
-      setFilter('');
+      setFilter('Filter by Category');
       if (storedExpenses) {
         setExpenses(JSON.parse(storedExpenses));
       }

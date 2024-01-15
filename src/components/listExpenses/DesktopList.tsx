@@ -66,7 +66,8 @@ function DesktopList({
         </table>
         <div className='text-center'>
           <h5 className='text-muted'>
-            You have spent: <span className='total'>${total}</span> {category && `on ${category.toLowerCase()}`}
+            You have spent: <span className='total'>${total}</span>{' '}
+            {category !== 'Filter by Category' ? `on ${category.toLowerCase()}.` : ''}
           </h5>
         </div>
       </div>
