@@ -52,7 +52,7 @@ function DesktopList({
                   <td className='text-center'>{expense.category}</td>
                   <td className='text-center'>
                     <button
-                      onClick={() => handleRemove(expense.id, expense.category)}
+                      onClick={() => handleRemove(expense.id, category)}
                       type='button'
                       className='btn btn-danger btn-sm button'
                     >

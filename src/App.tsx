@@ -18,7 +18,6 @@ interface FormValues {
 function App() {
   const [expenses, setExpenses] = useState<FormValues[]>([]);
   const [totals, setTotals] = useState<number>(0);
-  const [category, setCategory] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
@@ -46,19 +45,18 @@ function App() {
       localStorage.setItem('expenses', JSON.stringify([newExpense]));
     }
     setFilter('Filter by Category');
-    setCategory('');
   };
 
   const handleFilterExpenses = (event: { target: { value: string } }) => {
     setFilter(event.target.value);
     const storedExpenses = localStorage.getItem('expenses');
     if (event.target.value === 'Filter by Category') {
-      setCategory('');
+      setFilter('');
       if (storedExpenses) {
         setExpenses(JSON.parse(storedExpenses));
       }
     } else {
-      setCategory(event.target.value);
+      setFilter(event.target.value);
       if (!storedExpenses) {
         return;
       }
@@ -71,8 +69,17 @@ function App() {
   };
 
   const handleRemoveExpense = (id: number, category: string) => {
+    console.log('category --->', category);
     const storedExpenses = localStorage.getItem('expenses');
     if (!storedExpenses) {
+      return;
+    }
+    if (category === 'Filter by Category') {
+      const parsedExpenses = JSON.parse(storedExpenses);
+      const newExpenses = parsedExpenses.filter((expense: { id: number }) => expense.id !== id);
+      localStorage.setItem('expenses', JSON.stringify(newExpenses));
+      setExpenses(newExpenses);
+      setFilter(category);
       return;
     }
     const parsedExpenses = JSON.parse(storedExpenses);
@@ -81,7 +88,6 @@ function App() {
     const newExpensesByCategory = newExpenses.filter((expense: { category: string }) => expense.category === category);
 
     setExpenses(newExpensesByCategory);
-    setCategory(category);
     setFilter(category);
   };
 
@@ -99,7 +105,7 @@ function App() {
       </div>
 
       <div className='row '>
-        <ListExpenses expenses={expenses} handleRemove={handleRemoveExpense} total={totals} category={category} />
+        <ListExpenses expenses={expenses} handleRemove={handleRemoveExpense} total={totals} category={filter} />
       </div>
       <div className='row'>
         <Footer />
