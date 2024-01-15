@@ -69,7 +69,6 @@ function App() {
   };
 
   const handleRemoveExpense = (id: number, category: string) => {
-    console.log('category --->', category);
     const storedExpenses = localStorage.getItem('expenses');
     if (!storedExpenses) {
       return;

@@ -50,7 +50,7 @@ function MobileList({
                   </div>
 
                   <button
-                    onClick={() => handleRemove(e.id, e.category)}
+                    onClick={() => handleRemove(e.id, category)}
                     type='button'
                     className='btn btn-danger btn-sm button col-12 mt-3'
                   >
